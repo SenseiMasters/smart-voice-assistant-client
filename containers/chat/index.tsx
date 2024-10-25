@@ -7,6 +7,7 @@ import { ChatInput } from "./chat-input";
 import { ChatVoice } from "./chat-voice";
 import { classNames } from "@/utils/classNames";
 import { LangContext } from "@/providers/lang.provider";
+import { LangEnum } from "@/utils/components/assistants";
 import { PromptContext } from "@/providers/prompt.provider";
 import { useErrorHandler } from "@/hooks/error-handler.hook";
 import { useSendPrompt, useSpeechToText } from "@/apis/hooks/assistant";
@@ -44,6 +45,11 @@ export const ChatContainer: React.FC = () => {
     }
   };
 
+  const removePrompt = () => {
+    setPrompt("");
+    setText("");
+  };
+
   return (
     <section
       className={classNames(
@@ -53,7 +59,7 @@ export const ChatContainer: React.FC = () => {
     >
       {!!text && (
         <div
-          dir="rtl"
+          dir={lang === LangEnum.FA ? "rtl" : "ltr"}
           className="w-full"
           dangerouslySetInnerHTML={{
             __html: text.replace(/^\`\`\`html/g, "").replace(/\`\`\`$/g, ""),
@@ -62,6 +68,7 @@ export const ChatContainer: React.FC = () => {
       )}
       <div className="max-w-[600px] w-full mx-auto space-y-2">
         <ChatInput
+          handleOnRemove={removePrompt}
           handleOnSubmit={submitPrompt}
           loading={sendPrompt.isPending || speechToText.isPending}
         />

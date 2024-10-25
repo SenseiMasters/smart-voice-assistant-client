@@ -11,12 +11,14 @@ import { PromptContext } from "@/providers/prompt.provider";
 
 interface IChatInputProps {
   loading?: boolean;
+  handleOnRemove: () => void;
   handleOnSubmit: (_: string) => void;
 }
 
 export const ChatInput: React.FC<IChatInputProps> = ({
   loading = false,
   handleOnSubmit,
+  handleOnRemove
 }) => {
   const { prompt, setPrompt } = React.useContext(PromptContext);
 
@@ -33,7 +35,7 @@ export const ChatInput: React.FC<IChatInputProps> = ({
       <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-2">
         <button
           disabled={!prompt || loading}
-          onClick={() => setPrompt("")}
+          onClick={handleOnRemove}
           className={classNames(
             "bg-red-500 rounded-xl flex py-2 text-white font-semibold",
             "justify-center items-center hover:bg-red-400 gap-x-2 disabled:bg-red-300"
