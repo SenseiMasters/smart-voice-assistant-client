@@ -15,10 +15,6 @@ export const PromptContext = React.createContext<IPromptProvider>({
 export const PromptProvider: React.FC<IChildrenProps> = ({ children }) => {
   const [prompt, setPrompt] = React.useState<string>("");
 
-  React.useEffect(() => {
-    console.log(prompt);
-  }, [prompt]);
-
   return (
     <PromptContext.Provider value={{ prompt, setPrompt }}>
       {children}
